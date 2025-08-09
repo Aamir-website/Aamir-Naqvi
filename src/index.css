@@ -98,7 +98,6 @@ html {
 body {
   overflow-x: hidden; 
   height: auto;
-  cursor: none; /* Hide default cursor */
 }
 
 /* Better text selection */
@@ -107,10 +106,6 @@ body {
   color: white;
 }
 
-/* Hide cursor on all interactive elements */
-*, *:hover, *:active, *:focus {
-  cursor: none !important;
-}
 
 /* Floating animation for random lines */
 @keyframes float {
