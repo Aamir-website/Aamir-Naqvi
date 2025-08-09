@@ -731,8 +731,7 @@ useEffect(() => {
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
   };
 }, []); 
-
-  useEffect(() => {
+useEffect(() => {
   const handleFullscreenChange = () => {
     setTimeout(() => {
       ScrollTrigger.refresh();
@@ -744,6 +743,8 @@ useEffect(() => {
     document.removeEventListener("fullscreenchange", handleFullscreenChange);
   };
 }, []);
+  return ( 
+    <div className="relative">
     
       
       {/* Splash Screen */}
