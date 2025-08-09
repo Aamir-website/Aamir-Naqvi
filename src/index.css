@@ -98,12 +98,18 @@ html {
 body {
   overflow-x: hidden; 
   height: auto;
+  cursor: none; /* Hide default cursor */
 }
 
 /* Better text selection */
 ::selection {
   background: rgba(251, 191, 36, 0.3);
   color: white;
+}
+
+/* Hide cursor on all interactive elements */
+*, *:hover, *:active, *:focus {
+  cursor: none !important;
 }
 
 /* Floating animation for random lines */
