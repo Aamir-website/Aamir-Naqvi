@@ -6,8 +6,6 @@ import { SplashScreen } from './components/SplashScreen';
 import { RandomLines } from './components/RandomLines';
 import { Mail, Instagram, Linkedin } from 'lucide-react';
 
-
-
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,164 +14,6 @@ interface VideoPlayerProps {
   title: string;
   isShowreel?: boolean;
 }
-
-function App() {
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [showTestimonials, setShowTestimonials] = React.useState(true);
-  const [showContact, setShowContact] = React.useState(false);
-  const heroRef = useRef<HTMLDivElement>(null);
-  const portraitRef = useRef<HTMLDivElement>(null);
-  const baseRef = useRef<HTMLDivElement>(null);
-  const eyesRef = useRef<HTMLDivElement>(null);
-  const backgroundTextRef = useRef<HTMLDivElement>(null);
-  const portfolioSectionRef = useRef<HTMLDivElement>(null);
-  const mainTextRef = useRef<HTMLDivElement>(null);
-  const triangleRef = useRef<HTMLDivElement>(null);
-  const fixedBackgroundRef = useRef<HTMLDivElement>(null); 
-  const portfolioRef = useRef<HTMLDivElement>(null);
-// Mouse tracking state
-const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
-const [isCursorInsideHero, setIsCursorInsideHero] = React.useState(false);
-const [isMouseTrackingEnabled, setIsMouseTrackingEnabled] = React.useState(true);
-
-  // Handle splash screen completion
-  const handleLoadComplete = () => {
-    setIsLoading(false);
-  };
-
-// Track if cursor enters/leaves hero section
-useEffect(() => {
-  const heroElement = heroRef.current;
-  if (!heroElement) return;
-
-  const handleMouseEnter = () => setIsCursorInsideHero(true);
-  const handleMouseLeave = () => {
-    setIsCursorInsideHero(false);
-    setMousePosition({ x: 0, y: 0 }); // Optional reset
-  };
-
-  heroElement.addEventListener("mouseenter", handleMouseEnter);
-  heroElement.addEventListener("mouseleave", handleMouseLeave);
-
-  return () => {
-    heroElement.removeEventListener("mouseenter", handleMouseEnter);
-    heroElement.removeEventListener("mouseleave", handleMouseLeave);
-  };
-}, [heroRef]);
-
-// Mouse tracking effect
-useEffect(() => {
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!isCursorInsideHero || !isMouseTrackingEnabled) return;
-
-    const x = (e.clientX / window.innerWidth - 0.5) * 1.5;
-    const y = (e.clientY / window.innerHeight - 0.5) * 0.7;
-    setMousePosition({ x, y });
-  };
-
-  window.addEventListener("mousemove", handleMouseMove);
-  return () => window.removeEventListener("mousemove", handleMouseMove);
-}, [isCursorInsideHero, isMouseTrackingEnabled]);
-
- useEffect(() => {
-  ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-  gsap.registerPlugin(ScrollTrigger);
-
-  gsap.to(portraitRef.current, {
-  y: 900, // ya 200 if you want smaller slide
-  scrollTrigger: {
-    trigger: heroRef.current,
-    start: "top top",
-    end: "top+=1500", // 🔁 reduce to make it slower & smoother
-    scrub: 3        // 🔁 increase for smoother animation
-  }
-});
-
-   gsap.to(baseRef.current, {
-  y: 900, // ya 200 if you want smaller slide
-  scrollTrigger: {
-    trigger: heroRef.current,
-    start: "top top",
-    end: "top+=1500", // 🔁 reduce to make it slower & smoother
-    scrub: 3        // 🔁 increase for smoother animation
-  }
-});
-
-   gsap.to(eyesRef.current, {
-  y: 900, // ya 200 if you want smaller slide
-  scrollTrigger: {
-    trigger: heroRef.current,
-    start: "top top",
-    end: "top+=1500", // 🔁 reduce to make it slower & smoother
-    scrub: 3   // 🔁 increase for smoother animation
-  }
-});
-   
-    gsap.to(mainTextRef.current, {
-  y: 700, // ya 200 if you want smaller slide
-  scrollTrigger: {
-    trigger: heroRef.current,
-    start: "top top",
-    end: "top+=1500", // 🔁 reduce to make it slower & smoother
-    scrub: 3        // 🔁 increase for smoother animation
-  }
-});
-
-  // Triangle parallax
-  gsap.to(triangleRef.current, {
-    y: 100,
-    scrollTrigger: {
-      trigger: heroRef.current,
-      start: "top top",
-      end: "bottom+=1000 center",
-      scrub: 1
-    }
-  });
-
-
-    // bg text animate
-  gsap.to(backgroundTextRef.current, {
-    y: -300,
-    opacity: 1,
-    scaleY: 2.5, // Height scale increase for stretch effect
-    scrollTrigger: {
-      trigger: heroRef.current,
-      start: "bottom bottom",
-      end: "bottom+=-50 top",
-      scrub: 1,
-      ease: "power2.out"
-    }
-  });
-
-  // Portfolio up animation
-  gsap.to(portfolioSectionRef.current, {
-  y: -900,
-  scrollTrigger: {
-    trigger: portfolioSectionRef.current,
-    start: "top bottom", // trigger when bottom of element hits 80% of viewport
-    end: "bottom top", // optional: end when top of element hits 20% of viewport
-   scrub: 3
-  }
-});
-
-   
-    ScrollTrigger.create({
-      trigger: portfolioSectionRef.current,
-      start: "top 20%",
-      onEnter: () => setShowTestimonials(false),
-      onLeaveBack: () => setShowTestimonials(true),
-    });
-
-    // Show contact section when portfolio section is visible
-    ScrollTrigger.create({
-      trigger: portfolioSectionRef.current, 
-      start: "top 30%",
-      onEnter: () => setShowContact(true),
-      onLeaveBack: () => setShowContact(false),
-    });
-
-    
-      
 
 function VideoPlayer({ src, title, isShowreel = false }: VideoPlayerProps) {
   const [isFullscreen, setIsFullscreen] = React.useState(false);
@@ -729,15 +569,172 @@ function TestimonialBadge({ badge }: { badge: TestimonialBadge }) {
 }
 
 
- return () => {
+
+function App() {
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [showTestimonials, setShowTestimonials] = React.useState(true);
+  const [showContact, setShowContact] = React.useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const portraitRef = useRef<HTMLDivElement>(null);
+  const baseRef = useRef<HTMLDivElement>(null);
+  const eyesRef = useRef<HTMLDivElement>(null);
+  const backgroundTextRef = useRef<HTMLDivElement>(null);
+  const portfolioSectionRef = useRef<HTMLDivElement>(null);
+  const mainTextRef = useRef<HTMLDivElement>(null);
+  const triangleRef = useRef<HTMLDivElement>(null);
+  const fixedBackgroundRef = useRef<HTMLDivElement>(null); 
+  const portfolioRef = useRef<HTMLDivElement>(null);
+// Mouse tracking state
+const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
+const [isCursorInsideHero, setIsCursorInsideHero] = React.useState(false);
+const [isMouseTrackingEnabled, setIsMouseTrackingEnabled] = React.useState(true);
+
+  // Handle splash screen completion
+  const handleLoadComplete = () => {
+    setIsLoading(false);
+  };
+
+// Track if cursor enters/leaves hero section
+useEffect(() => {
+  const heroElement = heroRef.current;
+  if (!heroElement) return;
+
+  const handleMouseEnter = () => setIsCursorInsideHero(true);
+  const handleMouseLeave = () => {
+    setIsCursorInsideHero(false);
+    setMousePosition({ x: 0, y: 0 }); // Optional reset
+  };
+
+  heroElement.addEventListener("mouseenter", handleMouseEnter);
+  heroElement.addEventListener("mouseleave", handleMouseLeave);
+
+  return () => {
+    heroElement.removeEventListener("mouseenter", handleMouseEnter);
+    heroElement.removeEventListener("mouseleave", handleMouseLeave);
+  };
+}, [heroRef]);
+
+// Mouse tracking effect
+useEffect(() => {
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!isCursorInsideHero || !isMouseTrackingEnabled) return;
+
+    const x = (e.clientX / window.innerWidth - 0.5) * 1.5;
+    const y = (e.clientY / window.innerHeight - 0.5) * 0.7;
+    setMousePosition({ x, y });
+  };
+
+  window.addEventListener("mousemove", handleMouseMove);
+  return () => window.removeEventListener("mousemove", handleMouseMove);
+}, [isCursorInsideHero, isMouseTrackingEnabled]);
+
+ useEffect(() => {
+  ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.to(portraitRef.current, {
+  y: 900, // ya 200 if you want smaller slide
+  scrollTrigger: {
+    trigger: heroRef.current,
+    start: "top top",
+    end: "top+=1500", // 🔁 reduce to make it slower & smoother
+    scrub: 3        // 🔁 increase for smoother animation
+  }
+});
+
+   gsap.to(baseRef.current, {
+  y: 900, // ya 200 if you want smaller slide
+  scrollTrigger: {
+    trigger: heroRef.current,
+    start: "top top",
+    end: "top+=1500", // 🔁 reduce to make it slower & smoother
+    scrub: 3        // 🔁 increase for smoother animation
+  }
+});
+
+   gsap.to(eyesRef.current, {
+  y: 900, // ya 200 if you want smaller slide
+  scrollTrigger: {
+    trigger: heroRef.current,
+    start: "top top",
+    end: "top+=1500", // 🔁 reduce to make it slower & smoother
+    scrub: 3   // 🔁 increase for smoother animation
+  }
+});
+   
+    gsap.to(mainTextRef.current, {
+  y: 700, // ya 200 if you want smaller slide
+  scrollTrigger: {
+    trigger: heroRef.current,
+    start: "top top",
+    end: "top+=1500", // 🔁 reduce to make it slower & smoother
+    scrub: 3        // 🔁 increase for smoother animation
+  }
+});
+
+  // Triangle parallax
+  gsap.to(triangleRef.current, {
+    y: 100,
+    scrollTrigger: {
+      trigger: heroRef.current,
+      start: "top top",
+      end: "bottom+=1000 center",
+      scrub: 1
+    }
+  });
+
+
+    // bg text animate
+  gsap.to(backgroundTextRef.current, {
+    y: -300,
+    opacity: 1,
+    scaleY: 2.5, // Height scale increase for stretch effect
+    scrollTrigger: {
+      trigger: heroRef.current,
+      start: "bottom bottom",
+      end: "bottom+=-50 top",
+      scrub: 1,
+      ease: "power2.out"
+    }
+  });
+
+  // Portfolio up animation
+  gsap.to(portfolioSectionRef.current, {
+  y: -900,
+  scrollTrigger: {
+    trigger: portfolioSectionRef.current,
+    start: "top bottom", // trigger when bottom of element hits 80% of viewport
+    end: "bottom top", // optional: end when top of element hits 20% of viewport
+   scrub: 3
+  }
+});
+
+   
+    ScrollTrigger.create({
+      trigger: portfolioSectionRef.current,
+      start: "top 20%",
+      onEnter: () => setShowTestimonials(false),
+      onLeaveBack: () => setShowTestimonials(true),
+    });
+
+    // Show contact section when portfolio section is visible
+    ScrollTrigger.create({
+      trigger: portfolioSectionRef.current, 
+      start: "top 30%",
+      onEnter: () => setShowContact(true),
+      onLeaveBack: () => setShowContact(false),
+    });
+
+  return () => {
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
   };
 }, []); 
 
 
-  return (
+  return ( 
     <div className="relative">
-
+    
+      
       {/* Splash Screen */}
       {isLoading && <SplashScreen onLoadComplete={handleLoadComplete} />}
 
