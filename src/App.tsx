@@ -731,7 +731,9 @@ useEffect(() => {
 }, []); 
 
 
- 
+  return (
+    <div className="relative">
+    
       
       {/* Splash Screen */}
       {isLoading && <SplashScreen onLoadComplete={handleLoadComplete} />}
