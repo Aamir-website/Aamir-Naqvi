@@ -207,5 +207,19 @@ body {
 }
 
 .animate-fade-up {
-  animation: fade-up 1.2s ease-out both;
+  animation: fade-up 0.8s ease-out both;
+}
+
+/* Improved badge animations */
+@keyframes badge-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(1deg);
+  }
+}
+
+.animate-badge-float {
+  animation: badge-float 6s ease-in-out infinite;
 }

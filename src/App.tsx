@@ -505,16 +505,16 @@ interface TestimonialBadge {
 }
 
 const testimonialBadges: TestimonialBadge[] = [
-  { image: "/badges/1.png", position: { top: "10%", left: "25%" }, delay: 1.2, shineDelay: 2.3, shineDuration: 14, scale: 1.4 },
-  { image: "/badges/2.png", position: { top: "15%", left: "70%" }, delay: 1.8, shineDelay: 1.2, shineDuration: 12, scale: 0.7 },
-  { image: "/badges/3.png", position: { top: "25%", left: "20%" }, delay: 2.4, shineDelay: 3.7, shineDuration: 15, scale: 1.1 },
-  { image: "/badges/4.png", position: { top: "30%", left: "87%" }, delay: 3.0, shineDelay: 2.1, shineDuration: 13, scale: 0.8 },
-  { image: "/badges/5.png", position: { top: "30%", left: "20%" }, delay: 2.1, shineDelay: 4.9, shineDuration: 16, scale: 1.6 },
-  { image: "/badges/6.png", position: { top: "47%", left: "84%" }, delay: 3.3, shineDelay: 2.8, shineDuration: 12, scale: 0.9 },
-  { image: "/badges/7.png", position: { top: "12%", left: "10%" }, delay: 2.7, shineDelay: 0.5, shineDuration: 14, scale: 1.3 },
-  { image: "/badges/8.png", position: { top: "40%", left: "2%" }, delay: 2.0, shineDelay: 3.2, shineDuration: 13, scale: 0.6 },
-  { image: "/badges/9.png", position: { top: "55%", left: "68%" }, delay: 3.9, shineDelay: 1.7, shineDuration: 15, scale: 1.2 },
-  { image: "/badges/10.png", position: { top: "35%", left: "73%" }, delay: 3.9, shineDelay: 5.1, shineDuration: 16, scale: 0.85 },
+  { image: "/badges/1.png", position: { top: "10%", left: "25%" }, delay: 0.5, shineDelay: 2.3, shineDuration: 14, scale: 1.0 },
+  { image: "/badges/2.png", position: { top: "15%", left: "70%" }, delay: 0.8, shineDelay: 1.2, shineDuration: 12, scale: 0.8 },
+  { image: "/badges/3.png", position: { top: "25%", left: "20%" }, delay: 1.1, shineDelay: 3.7, shineDuration: 15, scale: 0.9 },
+  { image: "/badges/4.png", position: { top: "30%", left: "87%" }, delay: 1.4, shineDelay: 2.1, shineDuration: 13, scale: 0.7 },
+  { image: "/badges/5.png", position: { top: "30%", left: "20%" }, delay: 1.7, shineDelay: 4.9, shineDuration: 16, scale: 1.1 },
+  { image: "/badges/6.png", position: { top: "47%", left: "84%" }, delay: 2.0, shineDelay: 2.8, shineDuration: 12, scale: 0.8 },
+  { image: "/badges/7.png", position: { top: "12%", left: "10%" }, delay: 2.3, shineDelay: 0.5, shineDuration: 14, scale: 0.9 },
+  { image: "/badges/8.png", position: { top: "40%", left: "2%" }, delay: 2.6, shineDelay: 3.2, shineDuration: 13, scale: 0.6 },
+  { image: "/badges/9.png", position: { top: "55%", left: "68%" }, delay: 2.9, shineDelay: 1.7, shineDuration: 15, scale: 0.9 },
+  { image: "/badges/10.png", position: { top: "35%", left: "73%" }, delay: 3.2, shineDelay: 5.1, shineDuration: 16, scale: 0.8 },
 ];
 
 export function TestimonialBadgesGroup() {
@@ -530,44 +530,39 @@ export function TestimonialBadgesGroup() {
 function TestimonialBadge({ badge }: { badge: TestimonialBadge }) {
   return (
     <div
-      className="absolute animate-fade-in-delayed"
+      className="absolute opacity-0 animate-fade-up"
       style={{
         top: badge.position.top,
         left: badge.position.left,
         animationDelay: `${badge.delay}s`,
         animationFillMode: "forwards",
-        transform: `translateY(0) scale(${badge.scale})`,
-        opacity: 0.20,
+        transform: `scale(${badge.scale})`,
       }}
     >
-      <div className="relative w-auto h-auto">
+      <div className="relative w-auto h-auto max-w-[120px] sm:max-w-[150px] md:max-w-[180px] lg:max-w-[200px]">
         {/* Base Badge PNG */}
         <img
           src={badge.image}
           alt="testimonial badge"
-          className="w-full h-auto block relative z-10 opacity-20"
-          style={{
-            maxWidth: `${badge.scale > 1.2 ? '240px' : badge.scale < 0.8 ? '120px' : '180px'}`,
-          }}
+          className="w-full h-auto block relative z-10 opacity-30 hover:opacity-50 transition-opacity duration-300"
         />
 
         {/* Shine Overlay */}
-        
-         <div
-  className="absolute inset-0 z-20 pointer-events-none animate-shine-diagonal"
-  style={{
-    WebkitMaskImage: `url(${badge.image})`,
-    maskImage: `url(${badge.image})`,
-    WebkitMaskSize: 'contain',
-    maskSize: 'contain',
-    WebkitMaskRepeat: 'no-repeat',
-    maskRepeat: 'no-repeat',
-    animationDelay: `${badge.shineDelay}s`,
-    animationDuration: `${badge.shineDuration}s`,
-    '--shine-delay': `${badge.shineDelay}s`,
-    '--shine-duration': `${badge.shineDuration}s`,
-  } as React.CSSProperties}
-/>
+        <div
+          className="absolute inset-0 z-20 pointer-events-none animate-shine-diagonal"
+          style={{
+            WebkitMaskImage: `url(${badge.image})`,
+            maskImage: `url(${badge.image})`,
+            WebkitMaskSize: 'contain',
+            maskSize: 'contain',
+            WebkitMaskRepeat: 'no-repeat',
+            maskRepeat: 'no-repeat',
+            animationDelay: `${badge.shineDelay}s`,
+            animationDuration: `${badge.shineDuration}s`,
+            '--shine-delay': `${badge.shineDelay}s`,
+            '--shine-duration': `${badge.shineDuration}s`,
+          } as React.CSSProperties}
+        />
 
       </div>
     </div>
@@ -934,7 +929,7 @@ useEffect(() => {
 
         {/* Floating Testimonial Badges */}
                 {showTestimonials && (
-  <div className="fixed inset-0 z-10 pointer-events-none">
+  <div className="fixed inset-0 z-10 pointer-events-none overflow-hidden">
     {testimonialBadges.map((badge, index) => (
       <TestimonialBadge key={index} badge={badge} />
     ))}
