@@ -725,7 +725,18 @@ useEffect(() => {
       onLeaveBack: () => setShowContact(false),
     });
 
-   useEffect(() => {
+   
+
+  return () => {
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  };
+}, []); 
+
+
+  return ( 
+    <div className="relative">
+    
+      useEffect(() => {
   const handleFullscreenChange = () => {
     // Wait a tiny bit to let layout settle, then refresh
     setTimeout(() => {
@@ -740,17 +751,6 @@ useEffect(() => {
   };
 }, []);
 
-
-  return () => {
-    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-  };
-}, []); 
-
-
-  return ( 
-    <div className="relative">
-    
-      
       {/* Splash Screen */}
       {isLoading && <SplashScreen onLoadComplete={handleLoadComplete} />}
 
