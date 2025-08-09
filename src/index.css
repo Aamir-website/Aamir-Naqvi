@@ -79,7 +79,6 @@
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transform: translateZ(0); /* Force hardware acceleration */
 }
 
 /* Remove default margins and ensure full height */
@@ -87,7 +86,6 @@ html, body, #root {
   margin: 0;
   padding: 0;
   height: 100%;
-  backface-visibility: hidden; /* Improve performance */
 }
 
 /* Enable scrolling and prevent horizontal overflow */
@@ -95,14 +93,12 @@ html {
   overflow-x: hidden;
   scroll-behavior: smooth;
   height: auto;
-  transform: translateZ(0); /* Hardware acceleration */
 }
 
 body {
   overflow-x: hidden; 
   height: auto;
   cursor: none; /* Hide default cursor */
-  will-change: scroll-position; /* Optimize for scrolling */
 }
 
 /* Better text selection */

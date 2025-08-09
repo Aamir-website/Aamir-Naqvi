@@ -633,91 +633,80 @@ useEffect(() => {
   ScrollTrigger.getAll().forEach(trigger => trigger.kill());
   gsap.registerPlugin(ScrollTrigger);
 
-  // Set GSAP to use will-change for better performance
-  gsap.set([portraitRef.current, baseRef.current, eyesRef.current, mainTextRef.current], {
-    willChange: "transform"
-  });
-
   gsap.to(portraitRef.current, {
-  y: 400,
+  y: 900, // ya 200 if you want smaller slide
   scrollTrigger: {
     trigger: heroRef.current,
     start: "top top",
-    end: "bottom center",
-    scrub: 1.5,
-    ease: "none"
+    end: "top+=1500", // 🔁 reduce to make it slower & smoother
+    scrub: 3        // 🔁 increase for smoother animation
   }
 });
 
    gsap.to(baseRef.current, {
-  y: 400,
+  y: 900, // ya 200 if you want smaller slide
   scrollTrigger: {
     trigger: heroRef.current,
     start: "top top",
-    end: "bottom center",
-    scrub: 1.5,
-    ease: "none"
+    end: "top+=1500", // 🔁 reduce to make it slower & smoother
+    scrub: 3        // 🔁 increase for smoother animation
   }
 });
 
    gsap.to(eyesRef.current, {
-  y: 400,
+  y: 900, // ya 200 if you want smaller slide
   scrollTrigger: {
     trigger: heroRef.current,
     start: "top top",
-    end: "bottom center",
-    scrub: 1.5,
-    ease: "none"
+    end: "top+=1500", // 🔁 reduce to make it slower & smoother
+    scrub: 3   // 🔁 increase for smoother animation
   }
 });
    
     gsap.to(mainTextRef.current, {
-  y: 300,
+  y: 700, // ya 200 if you want smaller slide
   scrollTrigger: {
     trigger: heroRef.current,
     start: "top top",
-    end: "bottom center",
-    scrub: 1.5,
-    ease: "none"
+    end: "top+=1500", // 🔁 reduce to make it slower & smoother
+    scrub: 3        // 🔁 increase for smoother animation
   }
 });
 
   // Triangle parallax
   gsap.to(triangleRef.current, {
-    y: 50,
+    y: 100,
     scrollTrigger: {
       trigger: heroRef.current,
       start: "top top",
-      end: "bottom center",
-      scrub: 1,
-      ease: "none"
+      end: "bottom+=1000 center",
+      scrub: 1
     }
   });
 
 
     // bg text animate
   gsap.to(backgroundTextRef.current, {
-    y: -150,
+    y: -300,
     opacity: 1,
-    scaleY: 1.8,
+    scaleY: 2.5, // Height scale increase for stretch effect
     scrollTrigger: {
       trigger: heroRef.current,
-      start: "center center",
-      end: "bottom top",
+      start: "bottom bottom",
+      end: "bottom+=-50 top",
       scrub: 1,
-      ease: "none"
+      ease: "power2.out"
     }
   });
 
   // Portfolio up animation
   gsap.to(portfolioSectionRef.current, {
-  y: -200,
+  y: -900,
   scrollTrigger: {
     trigger: portfolioSectionRef.current,
-    start: "top bottom",
-    end: "center center",
-    scrub: 1.5,
-    ease: "none"
+    start: "top bottom", // trigger when bottom of element hits 80% of viewport
+    end: "bottom top", // optional: end when top of element hits 20% of viewport
+   scrub: 3
   }
 });
 
@@ -736,9 +725,6 @@ useEffect(() => {
       onEnter: () => setShowContact(true),
       onLeaveBack: () => setShowContact(false),
     });
-
-  // Refresh ScrollTrigger after setup
-  ScrollTrigger.refresh();
 
   return () => {
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
@@ -772,13 +758,13 @@ useEffect(() => {
       {/* Main Hero Section */} 
       <div 
         ref={heroRef}
-        className="relative min-h-screen w-full overflow-hidden bg-transparent will-change-transform"
+        className="relative min-h-screen w-full overflow-hidden bg-transparent"
       >
 
          {/* base */}
 <div 
   ref={baseRef}
-  className="absolute inset-0 flex items-center justify-center z-10 will-change-transform" 
+  className="absolute inset-0 flex items-center justify-center z-10" 
   style={{ top: '24%', left: '1%' }}
 >
   <div className="relative"> 
@@ -811,7 +797,7 @@ useEffect(() => {
       {/* Portrait */}
 <div 
   ref={portraitRef}
-  className="absolute inset-0 flex items-center justify-center z-30 will-change-transform" 
+  className="absolute inset-0 flex items-center justify-center z-30" 
   style={{ top: '24%', left: '1%' }}
 >
   <div className="relative"> 
@@ -844,7 +830,7 @@ useEffect(() => {
          {/* eyes */}
 <div
   ref={eyesRef}
-  className="absolute inset-0 flex items-center justify-center z-20 will-change-transform"
+  className="absolute inset-0 flex items-center justify-center z-20"
   style={{
     top: '24%',
     left: '1%',
@@ -904,7 +890,7 @@ useEffect(() => {
         {/* Main Typography */}
         <div 
           ref={mainTextRef}
-          className="absolute inset-0 flex items-center justify-center z-40 will-change-transform"
+          className="absolute inset-0 flex items-center justify-center z-40"
           style={{ top: '60%', left: '-1%' }}
         >
           <div className="text-center z-10 px-6">
@@ -984,7 +970,7 @@ useEffect(() => {
       {/* Portfolio Section */}
       <div 
   ref={portfolioSectionRef} 
-  className="relative min-h-screen w-full bg-white z-50 rounded-t-[3rem] rounded-b-[3rem] texture-overlay opacity-100 will-change-transform"
+  className="relative min-h-screen w-full bg-white z-50 rounded-t-[3rem] rounded-b-[3rem] texture-overlay opacity-100 translate-y- 10"
 >
 
         
