@@ -731,22 +731,11 @@ useEffect(() => {
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
   };
 }, []); 
-useEffect(() => {
-  const handleFullscreenChange = () => {
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 50);
-  };
 
-  document.addEventListener("fullscreenchange", handleFullscreenChange);
-  return () => {
-    document.removeEventListener("fullscreenchange", handleFullscreenChange);
-  };
-}, []);
   return ( 
     <div className="relative">
     
-      
+       
       {/* Splash Screen */}
       {isLoading && <SplashScreen onLoadComplete={handleLoadComplete} />}
 
