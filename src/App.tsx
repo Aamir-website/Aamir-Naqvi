@@ -990,21 +990,22 @@ useEffect(() => {
             </p>
           </div>
           
-          {/* Show Reel Section */}
-          <div className="relative mb-20 z-20">
-            <h3 className="text-3xl md:text-4xl font-bosenAlt text-black/80 mb-8 text-center tracking-tight">
-              SHOW REEL
-            </h3>
-            <div className="max-w-4xl mx-auto">
-              <VideoPlayer 
-                src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                title="SHOW REEL 2024"
-                isShowreel={true}
-              />
-            </div>
-          </div>
+         {/* Show Reel Section */}
+<div className="relative mb-20 z-20">
+  <h3 className="text-3xl md:text-4xl font-bosenAlt text-black/80 mb-8 text-center tracking-tight">
+    SHOW REEL
+  </h3>
+  <div className="max-w-4xl mx-auto">
+    <VideoPlayer 
+      src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+      title="SHOW REEL 2024"
+      isShowreel={true}
+      autoPlay={false}
+    />
+  </div>
+</div>
 
-         {/* 3x3 Grid of 16:9 Videos */}
+{/* 3x3 Grid of 16:9 Videos */}
 <div className="relative mb-20 z-20">
   <h3 className="text-3xl md:text-4xl font-bosenAlt text-black/80 mb-8 text-center tracking-tight">
     FEATURED WORK
@@ -1025,21 +1026,21 @@ useEffect(() => {
         key={i}
         src={url}
         title={`PROJECT ${String(i + 1).padStart(2, "0")}`}
-        isShowreel={false} // keeps it normal 16:9 styling
+        isShowreel={false}
+        autoPlay={false}
       />
     ))}
   </div>
 </div>
 
-
-        {/* 6x4 Grid of 9:16 Videos */}
+{/* 6x4 Grid of 9:16 Videos */}
 <div className="relative mb-20 z-20">
   <h3 className="text-3xl md:text-4xl font-bosenAlt text-black/80 mb-8 text-center tracking-tight">
     SOCIAL CONTENT
   </h3>
   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
     {[
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
@@ -1056,6 +1057,7 @@ useEffect(() => {
         key={i}
         src={url}
         title={`SOCIAL ${String(i + 1).padStart(2, "0")}`}
+        autoPlay={false}
       />
     ))}
   </div> 
