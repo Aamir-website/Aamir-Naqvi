@@ -732,25 +732,10 @@ useEffect(() => {
   };
 }, []); 
 
-
   return ( 
     <div className="relative">
     
-      useEffect(() => {
-  const handleFullscreenChange = () => {
-    // Wait a tiny bit to let layout settle, then refresh
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 50);
-  };
-
-  document.addEventListener("fullscreenchange", handleFullscreenChange);
-
-  return () => {
-    document.removeEventListener("fullscreenchange", handleFullscreenChange);
-  };
-}, []);
-
+      
       {/* Splash Screen */}
       {isLoading && <SplashScreen onLoadComplete={handleLoadComplete} />}
 
