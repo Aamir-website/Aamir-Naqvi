@@ -731,6 +731,27 @@ useEffect(() => {
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
   };
 }, []); 
+ ScrollTrigger.create({
+      trigger: portfolioSectionRef.current,
+      start: "top 20%",
+      onEnter: () => setShowTestimonials(false),
+      onLeaveBack: () => setShowTestimonials(true),
+    });
+
+    // Show contact section when portfolio section is visible
+    ScrollTrigger.create({
+      trigger: portfolioSectionRef.current, 
+      start: "top 30%",
+      onEnter: () => setShowContact(true),
+      onLeaveBack: () => setShowContact(false),
+    });
+
+   
+
+  return () => {
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  };
+}, []); 
 
   return ( 
     <div className="relative">
