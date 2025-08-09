@@ -731,10 +731,7 @@ useEffect(() => {
 }, []); 
 
 
-  return (
-    <div className="relative">
-      {/* Custom Cursor */}
-      <CustomCursor />
+ 
       
       {/* Splash Screen */}
       {isLoading && <SplashScreen onLoadComplete={handleLoadComplete} />}
