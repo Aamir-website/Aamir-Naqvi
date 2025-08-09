@@ -725,6 +725,22 @@ useEffect(() => {
       onLeaveBack: () => setShowContact(false),
     });
 
+   useEffect(() => {
+  const handleFullscreenChange = () => {
+    // Wait a tiny bit to let layout settle, then refresh
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 50);
+  };
+
+  document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+  return () => {
+    document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  };
+}, []);
+
+
   return () => {
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
   };
