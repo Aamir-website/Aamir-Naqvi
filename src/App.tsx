@@ -873,7 +873,6 @@ useEffect(() => {
           className="absolute inset-0 flex items-center justify-center pointer-events-none z-5"
           style={{ 
             top: '65%',
-            transform: `translate(${mousePosition.x * 8}px, ${mousePosition.y * 8}px)`,
             transition: 'transform 0.4s ease-out'
           }}
         >
