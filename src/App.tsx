@@ -6,6 +6,17 @@ import { SplashScreen } from './components/SplashScreen';
 import { RandomLines } from './components/RandomLines';
 import { Mail, Instagram, Linkedin } from 'lucide-react';
 
+
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
+interface VideoPlayerProps {
+  src?: string;
+  title: string;
+  isShowreel?: boolean;
+}
+
 function App() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [showTestimonials, setShowTestimonials] = React.useState(true);
@@ -161,25 +172,8 @@ useEffect(() => {
       onLeaveBack: () => setShowContact(false),
     });
 
-  return () => {
-    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-  };
-}, []); 
-
-
-  return (
-    <div className="relative">
     
       
-
-// Register ScrollTrigger plugin
-gsap.registerPlugin(ScrollTrigger);
-
-interface VideoPlayerProps {
-  src?: string;
-  title: string;
-  isShowreel?: boolean;
-}
 
 function VideoPlayer({ src, title, isShowreel = false }: VideoPlayerProps) {
   const [isFullscreen, setIsFullscreen] = React.useState(false);
@@ -735,7 +729,14 @@ function TestimonialBadge({ badge }: { badge: TestimonialBadge }) {
 }
 
 
+ return () => {
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  };
+}, []); 
 
+
+  return (
+    <div className="relative">
 
       {/* Splash Screen */}
       {isLoading && <SplashScreen onLoadComplete={handleLoadComplete} />}
