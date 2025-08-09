@@ -731,30 +731,19 @@ useEffect(() => {
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
   };
 }, []); 
- ScrollTrigger.create({
-      trigger: portfolioSectionRef.current,
-      start: "top 20%",
-      onEnter: () => setShowTestimonials(false),
-      onLeaveBack: () => setShowTestimonials(true),
-    });
 
-    // Show contact section when portfolio section is visible
-    ScrollTrigger.create({
-      trigger: portfolioSectionRef.current, 
-      start: "top 30%",
-      onEnter: () => setShowContact(true),
-      onLeaveBack: () => setShowContact(false),
-    });
-
-   
-
-  return () => {
-    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  useEffect(() => {
+  const handleFullscreenChange = () => {
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 50);
   };
-}, []); 
 
-  return ( 
-    <div className="relative">
+  document.addEventListener("fullscreenchange", handleFullscreenChange);
+  return () => {
+    document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  };
+}, []);
     
       
       {/* Splash Screen */}
