@@ -24,8 +24,8 @@ export function CustomCursor() {
 
     const animateCursor = () => {
       // Smooth following animation for outer circle
-      cursorX += (mouseX - cursorX) * 0.1;
-      cursorY += (mouseY - cursorY) * 0.1;
+      cursorX += (mouseX - cursorX) * 0.3;
+      cursorY += (mouseY - cursorY) * 0.3;
       
       // Faster following for inner dot
       dotX += (mouseX - dotX) * 0.3;
