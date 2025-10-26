@@ -101,16 +101,20 @@ export function VideoThumbnail({
           setIsInView(true);
           observer.disconnect();
 
-          // Auto-play for non-showreel videos
-          if (!isShowreel && videoRef.current) {
-            setIsLoading(true);
-            videoRef.current.src = src;
-            videoRef.current.muted = true;
-            videoRef.current.load();
-            videoRef.current.play().catch((error) => {
-              console.error('Error auto-playing video:', error);
-              setIsLoading(false);
-            });
+          // Auto-play for non-showreel videos after a short delay to ensure video element is ready
+          if (!isShowreel) {
+            setTimeout(() => {
+              if (videoRef.current) {
+                setIsLoading(true);
+                videoRef.current.src = src;
+                videoRef.current.muted = true;
+                videoRef.current.load();
+                videoRef.current.play().catch((error) => {
+                  console.error('Error auto-playing video:', error);
+                  setIsLoading(false);
+                });
+              }
+            }, 100);
           }
         }
       },
