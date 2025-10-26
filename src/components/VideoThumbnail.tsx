@@ -211,7 +211,7 @@ export function VideoThumbnail({
           } transition-opacity duration-300 ${
             hasStartedPlaying ? 'opacity-100' : 'opacity-0'
           }`}
-          loop={isShowreel}
+          loop
           playsInline
           preload="none"
           muted={isMuted}
