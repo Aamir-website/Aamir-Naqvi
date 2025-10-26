@@ -361,7 +361,7 @@ useEffect(() => {
      "https://dl.dropboxusercontent.com//scl/fi/tf5f799o3374utm82g8pr/9.mp4?rlkey=yspvsffa4adp98bitasex6inu&st=ib31r8rm&dl=0",
       "https://ia801002.us.archive.org/18/items/shorts-2-part/mj%20realtyyyyy2.mp4",
       "https://dl.dropboxusercontent.com//scl/fi/uzay8m6szjb2vtg02bdq0/8.mp4?rlkey=dnh5zqvln9ei730de2zw3bt6h&st=bslb7n84&dl=0",
-      "https://dl.dropboxusercontent.com/scl/fi/vg857kk1uqm6jqi9awus9/mj-realtyyyyy2.mp4?rlkey=z4s649idherip1hrj4ywk3n8l&st=lwt5wlkw&dl=0"
+      "https://dl.dropboxusercontent.com//scl/fi/ehvdk4soail4537lc464b/12.mp4?rlkey=rtpop0dm24iap7bpdvqlezeje&st=s3ndqz5c&dl=0"
     ].map((url, i) => (
       <VideoThumbnail
         key={i}
