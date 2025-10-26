@@ -99,6 +99,17 @@ export function VideoThumbnail({
         if (entry.isIntersecting) {
           setIsInView(true);
           observer.disconnect();
+
+          // Auto-play for non-showreel videos
+          if (!isShowreel && videoRef.current) {
+            setIsLoading(true);
+            videoRef.current.src = src;
+            videoRef.current.load();
+            videoRef.current.play().catch((error) => {
+              console.error('Error auto-playing video:', error);
+              setIsLoading(false);
+            });
+          }
         }
       },
       {
@@ -110,7 +121,7 @@ export function VideoThumbnail({
     observer.observe(container);
 
     return () => observer.disconnect();
-  }, []);
+  }, [isShowreel, src]);
 
   const handleClick = async () => {
     if (!videoRef.current) return;
