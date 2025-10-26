@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Maximize2, X, Play, Pause } from "lucide-react";
+import { Maximize2, X, Play, Pause, Volume2, VolumeX } from "lucide-react";
 import { thumbnailLoadQueue } from "../utils/thumbnailLoadQueue";
 
 const isMobile = () => window.innerWidth < 768;
@@ -79,6 +79,7 @@ export function VideoThumbnail({
   const [isLoading, setIsLoading] = useState(false);
   const [thumbnailLoaded, setThumbnailLoaded] = useState(false);
   const [hasStartedPlaying, setHasStartedPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
 
   const aspectClasses = aspectRatio === "vertical" ? "aspect-[9/16]" : "aspect-video";
 
@@ -104,6 +105,7 @@ export function VideoThumbnail({
           if (!isShowreel && videoRef.current) {
             setIsLoading(true);
             videoRef.current.src = src;
+            videoRef.current.muted = true;
             videoRef.current.load();
             videoRef.current.play().catch((error) => {
               console.error('Error auto-playing video:', error);
@@ -208,6 +210,7 @@ export function VideoThumbnail({
           loop={isShowreel}
           playsInline
           preload="none"
+          muted={isMuted}
           onLoadedData={() => {
             console.log('Video loaded data');
             setVideoLoaded(true);
@@ -285,8 +288,8 @@ export function VideoThumbnail({
       <button
         onClick={toggleFullscreen}
         className={`absolute bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition-all duration-300 z-20 ${
-          isFullscreen 
-            ? 'top-8 right-8 w-12 h-12 opacity-100' 
+          isFullscreen
+            ? 'top-8 right-8 w-12 h-12 opacity-100'
             : 'top-4 right-4 w-10 h-10 opacity-0 group-hover:opacity-100'
         }`}
       >
@@ -296,6 +299,30 @@ export function VideoThumbnail({
           <Maximize2 size={16} className="text-white" />
         )}
       </button>
+
+      {/* Mute/Unmute button */}
+      {!isShowreel && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsMuted(!isMuted);
+            if (videoRef.current) {
+              videoRef.current.muted = !isMuted;
+            }
+          }}
+          className={`absolute bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition-all duration-300 z-20 ${
+            isFullscreen
+              ? 'top-8 right-24 w-12 h-12 opacity-100'
+              : 'top-4 right-16 w-10 h-10 opacity-0 group-hover:opacity-100'
+          }`}
+        >
+          {isMuted ? (
+            <VolumeX size={isFullscreen ? 20 : 16} className="text-white" />
+          ) : (
+            <Volume2 size={isFullscreen ? 20 : 16} className="text-white" />
+          )}
+        </button>
+      )}
       
       {/* Title Badge */}
       <div className={`absolute transition-all duration-300 z-20 ${
