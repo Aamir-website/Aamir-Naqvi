@@ -7,6 +7,7 @@ import { LazyVideo } from './components/LazyVideo';
 import { useThrottledMouseTracking } from './hooks/useThrottledMouseTracking';
 import { MobileBadgeCarousel } from './components/MobileBadgeCarousel';
 import { SplashScreen } from './components/SplashScreen';
+import { videoPreloader } from './utils/videoPreloader';
 
 // Mobile viewport height handler
 function setMobileVH() {
@@ -70,7 +71,7 @@ function App() {
   useEffect(() => {
     // Initialize mobile viewport height
     setMobileVH();
-    
+
     const updateMobileVH = () => {
       if (window.innerWidth < 768) {
         setMobileVH(window.innerHeight);
@@ -91,6 +92,37 @@ function App() {
       window.removeEventListener('orientationchange', updateMobileVH);
       window.removeEventListener('scroll', setMobileVH);
     };
+  }, []);
+
+  // Preload all videos
+  useEffect(() => {
+    const allVideoUrls = [
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "https://dl.dropboxusercontent.com//scl/fi/m9qnr0g026vkv2d9k0wr9/3.mp4?rlkey=n4gku4i5uibz7sdc15bfs7xnn&st=yuczntkp&dl=0",
+      "https://dl.dropboxusercontent.com/scl/fi/dt90ww8263lixkfdl2nx9/1.mp4?rlkey=5000z7egdgcyst5k5bxgp4h0k&e=1&st=m5arxh58&dl=0",
+      "https://dl.dropboxusercontent.com//scl/fi/7crr0gxiq33qse1a1uczo/4.mp4?rlkey=rxsqyk0lu9p9xraq2t10iutqz&st=4a2d1p5r&dl=0",
+      "https://dl.dropboxusercontent.com//scl/fi/7rlq376jms8u9702wjuqx/6.mp4?rlkey=f70v1uzmodn96ql8zp0md16kz&st=yotkkvak&dl=0",
+      "https://dl.dropboxusercontent.com//scl/fi/yffe9w7h5klo16b7xksjh/2.mp4?rlkey=yain5b1y3mc4pjcjuixknwwoo&st=4u1aatpb&dl=0",
+      "https://dl.dropboxusercontent.com//scl/fi/w8pnrb5dugfj0vkb1g276/7.mp4?rlkey=ycfh3nld11i7re4rodvygm1a3&st=3g6ivfzw&dl=0",
+      "https://dl.dropboxusercontent.com//scl/fi/bq0y0l1v4cul6c6ou03ba/5.mp4?rlkey=p2704q9j4jdqbhmxuio1z5kmp&st=3tuxsvs8&dl=0",
+      "https://dl.dropboxusercontent.com//scl/fi/bvrqsyoo2fxy6mjra1gmu/11.mp4?rlkey=aa77qfbfxu2reewyc3rf8zlrj&st=uc8p6dw5&dl=0",
+      "https://dl.dropboxusercontent.com//scl/fi/tf5f799o3374utm82g8pr/9.mp4?rlkey=yspvsffa4adp98bitasex6inu&st=ib31r8rm&dl=0",
+      "https://dl.dropboxusercontent.com//scl/fi/ehvdk4soail4537lc464b/12.mp4?rlkey=rtpop0dm24iap7bpdvqlezeje&st=s3ndqz5c&dl=0",
+      "https://dl.dropboxusercontent.com//scl/fi/uzay8m6szjb2vtg02bdq0/8.mp4?rlkey=dnh5zqvln9ei730de2zw3bt6h&st=bslb7n84&dl=0",
+      "https://dl.dropboxusercontent.com/scl/fi/qns6c92ug9h30rm2pq0ah/Outworking-everyone-isn-t-that-hard-v1.mp4?rlkey=10rwbqrmgm8g84baccdcq8zqy&e=2&st=tn3mr5x1&dl=0",
+      "https://dl.dropboxusercontent.com/scl/fi/wxbrjspcn21e4v9jk3k4i/1.mp4?rlkey=ml7vvdqjbmpthuqjxm5d1dxkj&e=5&st=66ifnkek&dl=0",
+      "https://dl.dropboxusercontent.com/scl/fi/e5igp36newl4kg60t30jo/Never-running-out-of-things-to-say-is-easy-actually-isn-t-that-hard-v1.mp4?rlkey=ibhvo5biqkxxtxnq87yz8kgre&st=t9jg3jz3&dl=0",
+      "https://dl.dropboxusercontent.com/scl/fi/5bpaj1ghqqb2l09jh8fey/Crime-video.mp4?rlkey=gs8errfj4jzsgdm8f8apg221z&st=ok4a15jk&dl=0",
+      "https://dl.dropboxusercontent.com/scl/fi/7bwo8dc89eeqmlsv655rs/2.mp4?rlkey=2ub1x9xdq75n1hhs6tbwckq84&st=b790pngi&dl=0",
+      "https://dl.dropboxusercontent.com/scl/fi/7u0swmj6jsmzrx6ag8d4h/3.mp4?rlkey=6brz1jkth5kc9nkbarvoydono&st=dufyi669&dl=0",
+      "https://dl.dropboxusercontent.com/scl/fi/vqp4h38st2i2etbu07bb4/Flirting-with-women-isn-t-that-hard-v1.mp4?rlkey=ayt6iz2khevwoerrpqtvg95iu&st=28jyhqon&dl=0",
+      "https://dl.dropboxusercontent.com/scl/fi/xhsb2bbkj5qrawzfrju5x/4.mp4?rlkey=w7z93e20momg95hb7iysm2l4k&st=z5w5em4q&dl=0",
+      "https://dl.dropboxusercontent.com/scl/fi/25vbrjp5hcedekdiy0vae/5.mp4?rlkey=v5ycvzmqlab3h6iald9nbtt53&st=ftb6c421&dl=0",
+    ];
+
+    setTimeout(() => {
+      videoPreloader.addToQueue(allVideoUrls);
+    }, 2000);
   }, []);
   
 

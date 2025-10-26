@@ -80,6 +80,10 @@ export function VideoThumbnail({
   const [thumbnailLoaded, setThumbnailLoaded] = useState(false);
   const [hasStartedPlaying, setHasStartedPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
   const aspectClasses = aspectRatio === "vertical" ? "aspect-[9/16]" : "aspect-video";
 
@@ -233,6 +237,16 @@ export function VideoThumbnail({
           onCanPlay={() => {
             console.log('Video can play');
           }}
+          onTimeUpdate={() => {
+            if (videoRef.current && !isDragging) {
+              setCurrentTime(videoRef.current.currentTime);
+            }
+          }}
+          onLoadedMetadata={() => {
+            if (videoRef.current) {
+              setDuration(videoRef.current.duration);
+            }
+          }}
           onError={() => {
             console.log('Video error occurred');
             setIsLoading(false);
@@ -303,6 +317,48 @@ export function VideoThumbnail({
           <Maximize2 size={16} className="text-white" />
         )}
       </button>
+
+      {/* Progress bar */}
+      {videoLoaded && (
+        <div
+          ref={progressBarRef}
+          className={`absolute left-0 right-0 h-1 bg-white/20 cursor-pointer transition-all duration-300 z-20 group/progress ${
+            isFullscreen ? 'bottom-20' : 'bottom-0 opacity-0 group-hover:opacity-100'
+          }`}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!videoRef.current || !progressBarRef.current) return;
+            const rect = progressBarRef.current.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            videoRef.current.currentTime = pos * videoRef.current.duration;
+          }}
+          onMouseDown={(e) => {
+            e.stopPropagation();
+            setIsDragging(true);
+          }}
+          onMouseMove={(e) => {
+            if (!isDragging || !videoRef.current || !progressBarRef.current) return;
+            e.stopPropagation();
+            const rect = progressBarRef.current.getBoundingClientRect();
+            const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+            videoRef.current.currentTime = pos * videoRef.current.duration;
+            setCurrentTime(videoRef.current.currentTime);
+          }}
+          onMouseUp={(e) => {
+            e.stopPropagation();
+            setIsDragging(false);
+          }}
+          onMouseLeave={(e) => {
+            e.stopPropagation();
+            setIsDragging(false);
+          }}
+        >
+          <div
+            className="h-full bg-white group-hover/progress:bg-blue-500 transition-colors"
+            style={{ width: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }}
+          />
+        </div>
+      )}
 
       {/* Mute/Unmute button */}
       {!isShowreel && (
